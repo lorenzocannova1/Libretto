@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from encodings import normalize_encoding
+
 
 @dataclass
 class Voto:
@@ -29,6 +31,32 @@ class Libretto:
 
     def __len__(self):
         return len(self.voti)
+
+    def calcolaMedia(self):
+        """
+        restituisce la media dei voti attualmente presenti nel libretto
+        :return: restituisce la media dei voti oppure ValueError in caso la lista fosse vuota
+        """
+        if len(self.voti) == 0:
+            raise ValueError("Attenzione, lista esami vuota")
+        v = [v1.punteggio for v1 in self.voti]
+        return sum(v)/len(v)
+
+    def getVotiByPunti(self,punti, lode):
+        votiFiltrati = []
+        for v in self.voti:
+            if v.punteggio == punti and v.lode == lode:
+                votiFiltrati.append(v)
+
+        return votiFiltrati
+
+    def getVotoByName(self,nome):
+        for v in self.voti:
+            if v.materia == nome:
+                return v
+
+        return None
+
 
 def testVoto():
         print("Ho usato voto in maniera standalone")

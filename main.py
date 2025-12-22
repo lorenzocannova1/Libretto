@@ -123,5 +123,7 @@ print(myLib)
 myLib.append(v3)
 print(myLib)
 
+print(f"La media dei voti del lbretto è: {myLib.calcolaMedia()}")
+
 
 
