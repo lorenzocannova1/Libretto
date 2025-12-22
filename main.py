@@ -7,51 +7,34 @@
 # Ron = ["Ron", "Weasley", 11, "Capelli rossi", "Occhi marroni", "Grifondoro", ""]
 #
 # Grifondoro = [Harry, Ron]
+from dataclasses import dataclass
+from voto.voto import Voto, Libretto
+from scuola import *
+import flet
 
-class Person:
-    def __init__(self, nome, cognome, eta, capelli, occhi, casa, incantesimo="Non ancora definito"):
-        self.nome = nome
-        self.cognome = cognome
-        self.eta = eta
-        self.capelli = capelli
-        self.occhi = occhi
-        self.casa = casa
-        self.incantesimo = incantesimo
-
-    def __str__(self):
-        return f"{self.nome} - {self.cognome}"
-
-class Student(Person):
-    def __init__(self, nome, cognome, eta, capelli, occhi, casa, animale, incantesimo="Non ancora definito"):
-        super().__init__(nome, cognome, eta, capelli, occhi, casa, incantesimo)
-        self.animale = animale
-
-    def __str__(self):
-        return f"Studente: {self.nome} - {self.cognome} - {self.casa}"
-
-    def __repr__(self):
-        return f"Student(nome, cognome, eta, capelli, occhi, casa, animale)"
-
-class Teacher(Person):
-    def __init__(self, nome, cognome, eta, capelli, occhi, casa, materia, incantesimo="Non ancora definito"):
-        super().__init__(nome, cognome, eta, capelli, occhi, casa, incantesimo)
-        self.materia = materia
-
-class Casa:
-    def __init__(self, nomeCasa, studenti = []):
-        self.nome = nomeCasa
-        self.studenti = studenti
-
-    def addStudente(self, studente):
-        self.studenti.append(studente)
+"""
+class Voto:
+    def __init__(self, materia, punteggio, lode, data):
+        if punteggio == 30:
+            self.materia = materia
+            self.punteggio = punteggio
+            self.lode = lode
+            self. data = data
+        elif punteggio < 30:
+            self.materia = materia
+            self.punteggio = punteggio
+            self.lode = False
+            self.data = data
+        else:
+            raise ValueError(f"Attenzione, non posso creare un voto con punteggio {punteggio}")
 
     def __str__(self):
-        if len(self.studenti) == 0:
-            stringa = "La casa è vuota"
-        stringa =  f"Lista degli studenti iscritti alla casa {self.nome} \n"
-        for s in self.studenti:
-            stringa += str(s) + "\n"
-        return stringa
+        if self.lode == True:
+            return f"In {self.materia} hai preso {self.punteggio} e Lode il {self.data}"
+        else:
+            return f"In {self.materia} hai preso {self.punteggio} il {self.data}"
+"""
+
 
 
 #Grifondoro
@@ -103,9 +86,42 @@ personaggi = [Harry, Hermione, Ron, Neville, Ginny, Sirius, Remus, Minerva, Albu
               Draco, Severus, Horace, Bellatrix, Lucius, Narcissa, Pansy, Blaise, Luna, Cho, Gilderoy, Filius, Xenophilius,
               Padma, Michael, Cedric, Pomona, Hannah, Ernest, Susan, Ted]
 
+grifondoro = Casa("Grifondoro",[])
+tassorosso = Casa("Tassorosso",[])
+corvonero = Casa("Corvonero",[])
+serpeverde = Casa("Serpeverde",[])
 
+for p in personaggi:
+    #if p.casa == grifondoro.nome & isinstance(p,Student):
+    #   grifondoro.addStudente(p)
+    #if p.casa == tassorosso.nome & isinstance(p, Student):
+    #    tassorosso.addStudente(p)
+    #if p.casa == corvonero.nome & isinstance(p, Student):
+    #    corvonero.addStudente(p)
+    #if p.casa == serpeverde.nome & isinstance(p, Student):
+    #serpeverde.addStudente(p)
+    if isinstance(p,Student):
+        match p.casa:
+            case "Grifondoro":
+                grifondoro.addStudente(p)
+            case "Tassorosso":
+                tassorosso.addStudente(p)
+            case "Corvonero":
+                corvonero.addStudente(p)
+            case "Serpeverde":
+                serpeverde.addStudente(p)
+            case _:
+                print(f"Jumping{p}")
 
+#print(grifondoro)
 
+v1 = Voto("Trasfigurazione", 24, False, "2022-02-13")
+v2 = Voto("Pozioni", 30, True, "2022-02-13")
+v3 = Voto("Difesa contro le arti oscure", 27, False, "2022-04-13")
+myLib = Libretto(Harry, [v1,v2])
+print(myLib)
+myLib.append(v3)
+print(myLib)
 
 
 
