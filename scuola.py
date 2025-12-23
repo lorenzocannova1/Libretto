@@ -31,6 +31,9 @@ class Student(Person):
     def __repr__(self):
         return f"Student(nome, cognome, eta, capelli, occhi, casa, animale)"
 
+    def copy(self):
+        return Student(self.nome, self.cognome, self.eta, self.capelli, self.occhi, self.casa, self.animale)
+
 class Teacher(Person):
     def __init__(self, nome, cognome, eta, capelli, occhi, casa, materia, incantesimo="Non ancora definito"):
         super().__init__(nome, cognome, eta, capelli, occhi, casa, incantesimo)
